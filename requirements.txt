@@ -1,0 +1,6 @@
+textattack
+transformers
+torch
+datasets
+numpy
+tensorflow_hub

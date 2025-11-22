@@ -1,0 +1,2 @@
+"original_text","perturbed_text","original_score","perturbed_score","original_output","perturbed_output","ground_truth_output","num_queries","result_type"
+"I [[loved]] the [[cinematography]] and the [[story]] was [[touching]].","I [[lgoved]] the [[cpnematography]] and the [[lstory]] was [[tocching]].",0.00027567148208618164,0.9973666667938232,1,0,1,22,"Successful"
