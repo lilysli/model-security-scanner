@@ -1,2 +1,6 @@
 "original_text","perturbed_text","original_score","perturbed_score","original_output","perturbed_output","ground_truth_output","num_queries","result_type"
-"I [[loved]] the [[cinematography]] and the [[story]] was [[touching]].","I [[lgoved]] the [[cpnematography]] and the [[lstory]] was [[tocching]].",0.00027567148208618164,0.9973666667938232,1,0,1,22,"Successful"
+"it 's a [[charming]] and often [[affecting]] journey . ","it 's a [[tempt]] and often [[sham]] journey . ",0.00023382902145385742,0.9958263039588928,1,0,1,82,"Successful"
+"unflinchingly [[bleak]] and desperate ","unflinchingly [[raw]] and desperate ",0.014329373836517334,0.9876958131790161,0,1,0,24,"Successful"
+"allows us to hope that nolan is [[poised]] to embark a major career as a commercial [[yet]] inventive filmmaker . ","allows us to hope that nolan is [[self-possessed]] to embark a major career as a commercial [[however]] inventive filmmaker . ",0.0004261136054992676,0.7614269852638245,1,0,1,78,"Successful"
+"the acting , costumes , music , cinematography and sound are all [[astounding]] given the production 's austere locales . ","the acting , costumes , music , cinematography and sound are all [[dumbfounding]] given the production 's austere locales . ",0.003972053527832031,0.9989545345306396,1,0,1,116,"Successful"
+"it 's [[slow]] -- very , very [[slow]] . ","it 's [[easy]] -- very , very [[easy]] . ",0.0020480751991271973,0.9979871511459351,0,1,0,87,"Successful"
