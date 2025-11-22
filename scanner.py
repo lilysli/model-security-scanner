@@ -38,6 +38,14 @@ def parse_args():
             "  • pwws: Word-level synonym swaps (WordNet) → tests lexical robustness."
         ),
     )
+
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="textattack/bert-base-uncased-SST-2",
+        help="Hugging Face model ID or local path (default: textattack/bert-base-uncased-SST-2)",
+    )
+
     parser.add_argument(
         "--num-examples", type=int, default=5,
         help="Number of samples to attack (default: 5 from SST-2 validation)"
@@ -49,7 +57,7 @@ def parse_args():
 
     args = parser.parse_args()
 
-    # Srict validation of attack choice
+    # Strict validation of attack choice
     valid_attacks = {"deepwordbug", "pwws"}
     attack_clean = args.attack.lower().strip()
     if attack_clean not in valid_attacks:
@@ -73,10 +81,10 @@ def build_wrapper(model_name):
     return HuggingFaceModelWrapper(model, tok)
 
 # Run attack
-def run_attack(attack_name,num_samples, q_budget):
-    print(f"\n🔍 Model Security Scanner — Running '{attack_name}' attack...\n")
-
-    wrapper = build_wrapper(MODEL)
+def run_attack(attack_name, model_name, num_samples, query_budget):
+    print(f"\n🔍 Model Security Scanner — Model: {model_name} | Attack: {attack_name}\n")
+    
+    wrapper = build_wrapper(model_name)
     # Convert sample to TextAttack Dataset
     ta_dataset = TA_Dataset(SAMPLE[:num_samples])
 
@@ -85,7 +93,7 @@ def run_attack(attack_name,num_samples, q_budget):
         num_examples=num_samples, # number of samples to attack
         log_to_csv=str(OUT_DIR / "attack_log.csv"), # log results to CSV
         disable_stdout=False, # print progress to console
-        query_budget=q_budget  # max number of model queries allowed during attack
+        query_budget=query_budget  # max number of model queries allowed during attack
     )
 
 # Build attack from recipe
@@ -108,4 +116,4 @@ def run_attack(attack_name,num_samples, q_budget):
 
 if __name__ == "__main__":
     args = parse_args()
-    run_attack(args.attack, args.num_examples, args.query_budget)
+    run_attack(args.attack, args.model,  args.num_examples, args.query_budget)
