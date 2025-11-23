@@ -7,7 +7,7 @@ from textattack import Attacker, AttackArgs
 from textattack.datasets import Dataset as TA_Dataset
 from datasets import load_dataset
 import torch
-
+from generate_report import save_markdown_report
 
 # Create output directory
 OUT_DIR = Path("outputs")
@@ -24,7 +24,7 @@ def parse_args():
     parser = argparse.ArgumentParser(
         prog="Model Security Scanner",
         description="A lightweight tool to assess NLP model robustness via adversarial attacks.",
-        epilog="Choose an attack to probe vulnerabilities: typos, synonyms, or semantic perturbations.",
+        epilog="Choose an attack to test robustness against typos or synonyms.",
         formatter_class=argparse.RawTextHelpFormatter,
     )
 
@@ -91,9 +91,8 @@ def run_attack(attack_name, model_name, num_samples, query_budget):
     # Configure attack
     attack_args = AttackArgs(
         num_examples=num_samples, # number of samples to attack
-        log_to_csv=str(OUT_DIR / "attack_log.csv"), # log results to CSV
-        disable_stdout=False, # print progress to console
-        query_budget=query_budget  # max number of model queries allowed during attack
+        disable_stdout=True, # print progress to console
+        query_budget=query_budget,  # max number of model queries allowed during attack
     )
 
 # Build attack from recipe
@@ -109,11 +108,9 @@ def run_attack(attack_name, model_name, num_samples, query_budget):
     # Execute attack
     results = attacker.attack_dataset()
 
-    # Print results
-    for r in results:
-        print("Result:", r)
-    print("Attack complete. CSV:", OUT_DIR / "attack_log.csv")
+    return results
 
 if __name__ == "__main__":
     args = parse_args()
-    run_attack(args.attack, args.model,  args.num_examples, args.query_budget)
+    results = run_attack(args.attack, args.model,  args.num_examples, args.query_budget)
+    save_markdown_report(args.model, args.attack, results)
